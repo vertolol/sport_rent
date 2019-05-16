@@ -1,0 +1,43 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    announcements
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-10 border border-info">
+                <h2>announcements:</h2>
+                <div class="row">
+                {% for ann in anns %}
+                    <div class="card m-1" style="width: 14rem;">
+                        <img class="card-img-top" src="{{ ann.img or static('img/no_photo.png') }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5>{{ ann.title }}</h5>
+                            <div class="container mt-1 mb-1">
+                                <div class="row">
+                                    <div class="col text-leftborder text-danger pl-0">Продажа:</div>
+                                    <div class="col text-right text-info pr-0">Аренда:</div>
+                                    <div class="w-100"></div>
+                                    <div class="col text-leftborder pl-0">Column</div>
+                                    <div class="col text-right pr-0">Column</div>
+                                </div>
+                            </div>
+                            <div class="pl-0">
+                                {{ moment(ann.date_pub).format() }}
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+                </div>
+            </div>
+            <div class="col-2 border border-info">
+                col-2
+            </div>
+        </div>
+    </div>
+{% endblock %}
