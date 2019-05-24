@@ -1,15 +1,17 @@
-from django.shortcuts import render
 from .models import Announcement
-
-def ann_list(request):
-    context = {
-        'anns': Announcement.objects.all(),
-    }
-    return render(request, 'ann/ann_list.html', context=context)
+from django.views.generic import ListView, DetailView
 
 
-def ann_detail(request, slug):
-    context = {
-        'ann': Announcement.objects.get(slug__iexact=slug)
-    }
-    return render(request, 'ann/ann_detail.html', context=context)
+class AnnouncementList(ListView):
+
+    model = Announcement
+    template_name = 'ann/ann_list.html'
+    context_object_name = 'anns'
+
+
+class AnnouncementDetail(DetailView):
+
+    model = Announcement
+    template_name = 'ann/ann_detail.html'
+    context_object_name = 'ann'
+

@@ -1,10 +1,9 @@
-from django.shortcuts import render
 from .models import UserProfile
-# Create your views here.
+from django.views.generic import DetailView
 
-def user(request, pk):
 
-    context = {
-        'user': UserProfile.objects.get(pk__iexact=pk)
-    }
-    return render(request, 'user/user.html', context=context)
+class UserDetail(DetailView):
+
+    model = UserProfile
+    template_name = 'user/user.html'
+    context_object_name = 'user'

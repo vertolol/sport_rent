@@ -10,6 +10,8 @@
 
     <div class="container mt-5">
         <div class="row">
+
+            <!--Announcement info-->
             <div class="col-8 border border-info">
                 <h2>{{ ann.title }}</h2>
 
@@ -42,8 +44,25 @@
 
                 <p>{{ ann.description }}</p>
             </div>
+
+            <!--User info-->
             <div class="col-4 border border-info">
-                col-2
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="..." alt="avatar">
+
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{{ ann.user.get_absolute_url() }}">{{ ann.user.first_name }}</a></h5>
+
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{ ann.user.city_name }}</li>
+                        <li class="list-group-item">Зарегестрирован: <br>{{ moment(ann.user.date_create_profile).calendar() }}</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="#" class="card-link">Телефон</a>
+                        <a href="#" class="text-right card-link  p-0">Написать</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

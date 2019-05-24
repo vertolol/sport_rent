@@ -15,7 +15,7 @@ class Announcement(models.Model):
     date_pub = models.DateTimeField(default=timezone.now)
 #     type = models.CharField()
 #     city = models.CharField()
-    user = models.ForeignKey('user.UserProfile', on_delete=models.CASCADE)
+    user = models.ForeignKey('user.UserProfile', on_delete=models.CASCADE, related_name='announcements')
 
 
     def get_absolute_url(self):
