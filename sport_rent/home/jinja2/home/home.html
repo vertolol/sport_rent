@@ -6,4 +6,16 @@
 
 {% block content %}
     <h2>home page</h2>
+
+        <ul>
+            {% for node in category recursive %}
+
+                <li>
+                    <a href="{{ node.get_absolute_url() }}">{{ node }}</a>
+
+                    <ul>{{ loop(node.get_children()) }}</ul>
+                </li>
+            {% endfor %}
+        </ul>
+
 {% endblock %}

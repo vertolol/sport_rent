@@ -43,7 +43,8 @@ ESTABLISHED_APPS = [
     'home',
     'user',
     'pytils',
-    'cities_light'
+    'cities_light',
+    'mptt'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + ESTABLISHED_APPS

@@ -17,7 +17,6 @@ class Announcement(models.Model):
 #     city = models.CharField()
     user = models.ForeignKey('user.UserProfile', on_delete=models.CASCADE, related_name='announcements')
 
-
     def get_absolute_url(self):
         return reverse('ann_detail_url', kwargs={'slug': self.slug})
 
