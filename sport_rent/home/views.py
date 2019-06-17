@@ -1,15 +1,21 @@
 from django.shortcuts import render
 from .models import Category
+from django.views.generic import View, ListView, DetailView
 
 
-def home_page(request):
-    context = {
-        'category' : Category.objects.root_node(tree_id=1).get_children()
-    }
-    return render(request, 'home/home.html', context=context)
+class HomePage(ListView):
 
-def category(request, slug):
-    context = {
-        'category' : Category.objects.get(slug=slug)
-    }
-    return render(request, 'home/category.html', context=context)
+    model = Category
+    template_name = 'home/home.html'
+    context_object_name = 'category'
+
+    def get_queryset(self):
+        return Category.objects.root_node(tree_id=1).get_children()
+
+
+class CategoryDetail(DetailView):
+    model = Category
+    template_name = 'home/category.html'
+    context_object_name = 'category'
+
+

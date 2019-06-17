@@ -12,7 +12,6 @@
 
                 <li>
                     <a href="{{ node.get_absolute_url() }}">{{ node }}</a>
-
                     <ul>{{ loop(node.get_children()) }}</ul>
                 </li>
             {% endfor %}
