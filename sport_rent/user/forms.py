@@ -1,22 +1,29 @@
 from django import forms
 from cities_light.models import Region, City
-from .models import UserProfile
+from django.contrib.auth import get_user_model
+
+from allauth.account.forms import LoginForm
+''', SignupForm'''
+
+
+class MyCustomLoginForm(LoginForm):
+    def __init__(self, *args, **kwargs):
+        super(MyCustomLoginForm, self).__init__(*args, **kwargs)
+        self.fields["login"].widget.attrs.update({'class': 'form-control'})
+        self.fields["password"].widget.attrs.update({'class': 'form-control'})
+
+    def login(self, *args, **kwargs):
+        # Add your own processing here.
+        # You must return the original result.
+        return super(MyCustomLoginForm, self).login(*args, **kwargs)
 
 
 class UserForm(forms.ModelForm):
     first_name = forms.CharField(max_length=150)
-    # last_name = models.CharField(max_length=150, db_index=True)
-    # slug = models.SlugField(blank=True, null=True)
-    # phone =
-    # email =
-    # vk =
-    # avatar = models.ImageField()
-    # date_create_profile = forms.DateTimeField(default=timezone.now)
-
-    city = forms.ChoiceField(label="city",
-                             # choices=[(i.pk, i.alternate_names) for i in City.objects.all()],
+    email = forms.EmailField(required=True)
+    city = forms.ModelChoiceField(label="city",
+                             queryset=City.objects.all(),
                              required=True)
-
     region = forms.ChoiceField(label="region",
                                choices=sorted(
                                     [(i.id, i.alternate_names.split(';')[-1]) for i in Region.objects.all()],
@@ -24,7 +31,13 @@ class UserForm(forms.ModelForm):
                                required=True)
 
     class Meta():
-        model = UserProfile
+        model = get_user_model()
         fields = (
-            'first_name', 'region', 'city',
+            'first_name', 'email', 'region', 'city'
         )
+
+    def signup(self, request, user):
+        user.first_name = self.cleaned_data['first_name']
+        user.city = self.cleaned_data['city']
+        user.save()
+        return user

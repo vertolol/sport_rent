@@ -1,0 +1,41 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    Регистрация
+{% endblock %}
+
+{% block content %}
+
+    <div class="container mt-5">
+        <div class="row">
+
+            <div class="col-8 border border-info">
+                <h2>Вход:</h2>
+                <form method="post">
+                    {{ csrf_input }}
+                    {% for field in form %}
+                        <div class="form-group row">
+                            <label for="colFormLabel" class="col-sm-2 col-form-label">{{ field.label }}</label>
+                            <div class="col-sm-6">
+                                {{ field }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {{ form.errors }}
+                    <button type="submit" class="btn btn-info mr-sm-2">Войти</button>
+                </form>
+            </div>
+
+            <div class="col-4 border border-info">
+
+            </div>
+        </div>
+    </div>
+
+
+    <a id="a_for_city_ajax" href="{{ url('city_ajax_url') }}"></a>
+{% endblock %}
+
+{% block javascript %}
+<script src="{{ static('js/city_ajax.js') }}"></script>
+{% endblock %}

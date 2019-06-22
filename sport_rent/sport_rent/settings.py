@@ -36,15 +36,20 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 ]
 
 ESTABLISHED_APPS = [
     'announcement',
     'home',
     'user',
+
     'pytils',
     'cities_light',
-    'mptt'
+    'mptt',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + ESTABLISHED_APPS
@@ -147,3 +152,42 @@ STATICFILES_DIRS = (
 CITIES_LIGHT_TRANSLATION_LANGUAGES = ['ru', 'en']
 CITIES_LIGHT_INCLUDE_COUNTRIES = ['RU']
 CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLA3', 'PPLA4', 'PPLC', 'PPLF', 'PPLG', 'PPLL', 'PPLR', 'PPLS', 'STLMT',]
+
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SITE_ID = 1
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#custom User model
+AUTH_USER_MODEL = 'user.UserProfile'
+
+#django-allauth
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+ACCOUNT_SESSION_REMEMBER = True
+
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
+LOGIN_REDIRECT_URL = 'ann_list_url'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'ann_list_url'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
+ACCOUNT_SIGNUP_FORM_CLASS = 'user.forms.UserForm'
+
+ACCOUNT_FORMS = {
+    'login': 'user.forms.MyCustomLoginForm',
+    #'signup': 'user.forms.MyCustomSignupForm'
+    }

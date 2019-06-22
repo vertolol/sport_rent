@@ -1,0 +1,7 @@
+
+
+{% for city in cities %}
+
+    <option value="{{ city.id }}">{{ city.alternate_names.split(';')[-1] }}</option>
+
+{% endfor %}

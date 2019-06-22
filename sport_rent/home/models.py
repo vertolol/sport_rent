@@ -2,7 +2,6 @@ from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 from autoslug import AutoSlugField
 from django.urls import reverse
-from announcement.models import Announcement
 
 
 class Category(MPTTModel):

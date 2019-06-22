@@ -2,6 +2,7 @@ from django.db import models
 from autoslug import AutoSlugField
 from django.utils import timezone
 from django.urls import reverse
+from django.contrib.auth import get_user_model
 
 
 class Announcement(models.Model):
@@ -9,13 +10,13 @@ class Announcement(models.Model):
     slug = AutoSlugField(populate_from='title',
                          unique=True)
     description = models.TextField(blank=True, db_index=True)
-#     selling_price = models.IntegerField()
-#     rental_price = models.IntegerField()
-#     image = models.ImageField()
+    # selling_price = models.IntegerField()
+    # rental_price = models.IntegerField()
+    # image = models.ImageField()
     date_pub = models.DateTimeField(default=timezone.now)
-#     type = models.CharField()
-#     city = models.CharField()
-    user = models.ForeignKey('user.UserProfile', on_delete=models.CASCADE, related_name='announcements')
+    # category = models.ForeignKey('home.Category', on_delete=models.CASCADE, related_name='announcements')
+    # city = models.CharField()
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='announcements')
 
     def get_absolute_url(self):
         return reverse('ann_detail_url', kwargs={'slug': self.slug})

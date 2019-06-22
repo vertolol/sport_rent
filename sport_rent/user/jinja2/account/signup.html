@@ -1,0 +1,46 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    Регистрация
+{% endblock %}
+
+{% block content %}
+
+    <div class="container mt-5">
+        <div class="row">
+
+            <div class="col-8 border border-info">
+                <h2>Регистрация:</h2>
+
+                <form class="signup" id="signup_form" method="post" action="{{ url('account_signup') }}">
+                    {{ csrf_input }}
+                    {{ form.first_name }}
+                    {{ form.email }}<br>
+                    {{ form.region }}<br>
+                    {{ form.city }}<br>
+                    {{ form.password1 }}<br>
+                    {% if redirect_field_value %}
+                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    {% endif %}
+                    <button type="submit">Регистрация</button>
+                    {{ form.errors }}
+
+
+                </form>
+
+
+            </div>
+
+            <div class="col-4 border border-info">
+
+            </div>
+        </div>
+    </div>
+
+
+    <a id="a_for_city_ajax" href="{{ url('city_ajax_url') }}"></a>
+{% endblock %}
+
+{% block javascript %}
+<script src="{{ static('js/city_ajax.js') }}"></script>
+{% endblock %}
